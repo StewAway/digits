@@ -11,4 +11,4 @@ Once in the directory for the project, run ```pip3 install -r requirements.txt``
 
 Run ```python recognition.py model.h1``` to classify handwriting digits from 0 to 9 using the model trained from ```handwriting.py```.
 
-You can modify the convolutional neural network details that are used inside the ```handwriting.py``` to create a newly trained model by running ```python recognition.py {model name}``.
+You can modify the convolutional neural network details that are used inside the ```handwriting.py``` to create a newly trained model by running ```python recognition.py {model name}```.
