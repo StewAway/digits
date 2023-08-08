@@ -3,7 +3,7 @@ Implementation of an AI to classify handwriting digits.
 
 ## Usage
 
-![]()
+![](logo.png)
 
 Download the distribution code and unzip it.
 
