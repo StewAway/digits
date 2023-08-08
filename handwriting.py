@@ -4,9 +4,6 @@ import tensorflow as tf
 # Use MNIST handwriting dataset
 mnist = tf.keras.datasets.mnist
 
-# Set the input shape
-input_shape = (40, 40, 1)
-
 # Prepare data for training
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 x_train, x_test = x_train / 255.0, x_test / 255.0
@@ -20,32 +17,40 @@ x_test = x_test.reshape(
 )
 
 # Create a convolutional neural network
-model = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(64, kernel_size=(3, 3), activation='relu', input_shape=input_shape),
+model = tf.keras.models.Sequential([
+
+    # Convolutional layer. Learn 64 filters using a 3x3 kernel
+    tf.keras.layers.Conv2D(
+        64, (3, 3), activation="relu", input_shape=(28, 28, 1)
+    ),
+
+    # Max-pooling layer, using 2x2 pool size
     tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
 
-    tf.keras.layers.Conv2D(64, kernel_size=(3, 3), activation='relu', input_shape=input_shape),
+    # Double the convolutional layer
+    tf.keras.layers.Conv2D(
+        64, (3, 3), activation="relu", input_shape=(28, 28, 1)
+    ),
+
+    # Max-pooling layer, using 2x2 pool size
     tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
 
-    tf.keras.layers.Conv2D(64, kernel_size=(3, 3), activation='relu', input_shape=input_shape),
-    tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
-
-    tf.keras.layers.Conv2D(64, kernel_size=(3, 3), activation='relu', input_shape=input_shape),
-    tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
-
+    # Flatten units
     tf.keras.layers.Flatten(),
-    
-    tf.keras.layers.Dense(1024, activation='relu'),
+
+    # Add a hidden layer with dropout
+    tf.keras.layers.Dense(1024, activation="relu"),
     tf.keras.layers.Dropout(0.5),
 
-    tf.keras.layers.Dense(10, activation='softmax')
+    # Add an output layer with output units for all 10 digits
+    tf.keras.layers.Dense(10, activation="softmax")
 ])
 
-# Compile the model
+# Train neural network
 model.compile(
-    loss='sparse_categorical_crossentropy',
-    optimizer=tf.keras.optimizers.RMSprop(),
-    metrics=['accuracy']
+    optimizer="adam",
+    loss="categorical_crossentropy",
+    metrics=["accuracy"]
 )
 model.fit(x_train, y_train, epochs=10)
 
