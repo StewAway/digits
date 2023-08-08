@@ -1,5 +1,5 @@
-# Minesweeper
- Implementation of an AI to play minesweeper
+# Digits
+Implementation of an AI to classify handwriting digits.
 
 ## Usage
 
